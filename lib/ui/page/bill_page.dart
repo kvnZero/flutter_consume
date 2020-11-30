@@ -11,9 +11,29 @@ class BillPage extends StatefulWidget {
 class _BillPageState extends State<BillPage> {
   @override
   Widget build(BuildContext context) {
+
+    Color amColor = Color.fromRGBO(243, 226, 171, 1);
+    Color emColor = Color.fromRGBO(40, 61, 122, 1);
+    Color pmColor = Color.fromRGBO(174, 193, 234, 1);
+    Color csColor;
+
+    var today = DateTime.now();
+
+    if(today.hour>7){
+      csColor = amColor;
+    }
+    if(today.hour>16){
+      csColor = pmColor;
+    }
+    if(today.hour>20){
+      csColor = emColor;
+    }
+
+
+
     return Column(
       children: [
-        TitleWidget(title: "账单", backgroundColor: Colors.blueAccent, fontColor: Colors.white, fontSize: upx(40),),
+        TitleWidget(title: "账单", backgroundColor: csColor, fontColor: Colors.white, fontSize: upx(40),),
         IndexMoneyWidget(payedMoney: 300.00, payMoney: 300.00,),
       ],
     );

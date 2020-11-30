@@ -23,7 +23,6 @@ class _IndexState extends State<Index> {
     {'icon':Icons.payment,'title':'账单'},
     {'icon':Icons.list,'title':'记录'},
     {'icon':Icons.person,'title':'我的'},
-
   ];
 
 

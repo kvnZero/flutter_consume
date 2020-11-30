@@ -26,30 +26,55 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+    var today = DateTime.now();
+
+    String imgBack;
+    Color moneyFontColor;
+    Color tipFontColor;
+
+    if(today.hour>7){
+      imgBack = "assets/images/am-back.png";
+    }
+    if(today.hour>16){
+      imgBack = "assets/images/pm-back.png";
+    }
+    if(today.hour>20){
+      imgBack = "assets/images/em-back.png";
+      tipFontColor = Colors.white60;
+      moneyFontColor = Colors.white;
+    }
+
+
     return Column(
       children: [
         Container(
             width: double.infinity,
             height: upx(250),
-            color: Colors.blueAccent,
+            decoration: new BoxDecoration(
+                image: new DecorationImage(
+                    image: new AssetImage(imgBack),
+                    fit: BoxFit.cover
+                )
+            ),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    MoneyShowWithTipsWidget(number: widget.payedMoney, tip: "已还金额",),
+                    MoneyShowWithTipsWidget(number: widget.payedMoney, tip: "已还金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor,),
                     Container(
                       height: upx(150),
                       width: 1,
                       color: Colors.black26,
                     ),
-                    MoneyShowWithTipsWidget(number: widget.payMoney, tip: "待还金额",),
+                    MoneyShowWithTipsWidget(number: widget.payMoney, tip: "待还金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor,),
                   ],
                 ),
                 Container(
                   margin: EdgeInsets.only(top: upx(20)),
-                  child: Text("${this.month}月账单", style: TextStyle(fontSize: upx(30)),),
+                  child: Text("${this.month}月账单", style: TextStyle(fontSize: upx(30), color: tipFontColor),),
                   height: upx(50),
                 )
               ],
