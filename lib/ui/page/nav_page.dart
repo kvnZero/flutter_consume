@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_consume/ui/page/all_page.dart';
 import 'package:flutter_consume/ui/page/bill_page.dart';
 
 class Index extends StatefulWidget {
@@ -13,7 +14,7 @@ class _IndexState extends State<Index> {
 
   List<Widget> pageView = [
     BillPage(),
-    BillPage(),
+    AllPage(),
     BillPage(),
     BillPage(),
   ];
