@@ -42,8 +42,18 @@ class _BillPageState extends State<BillPage> {
 
     widgets.add(RecordWidget(id: 2, name: '随便玩玩', money: 10, dateShow: '1/11', payDate: '10-11', type: '支付宝', status: 2,));
 
-    return Column(
-      children: widgets,
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            child: Column(
+              children: widgets,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
