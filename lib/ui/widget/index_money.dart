@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/upx.dart';
 import 'package:flutter_consume/common/MoneyEvent.dart';
 import 'package:flutter_consume/ui/widget/common_money_show.dart';
-import 'package:event_bus/event_bus.dart';
+import 'dart:ui';
 
 class IndexMoneyWidget extends StatefulWidget {
 
@@ -69,7 +69,7 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> {
       children: [
         Container(
             width: double.infinity,
-            height: upx(250),
+            height: upx(380),
             decoration: new BoxDecoration(
                 image: new DecorationImage(
                     image: new AssetImage(imgBack),
@@ -78,6 +78,11 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> {
             ),
             child: Column(
               children: [
+                Container(
+                  padding: EdgeInsets.only(left: upx(50),right: upx(50),top: MediaQueryData.fromWindow(window).padding.top+10),
+                  child: Text("本月账单",style: TextStyle(fontSize: upx(40), color: Colors.white)),
+                  width: double.infinity,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,

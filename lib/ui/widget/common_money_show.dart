@@ -6,8 +6,11 @@ class MoneyShowWithTipsWidget extends StatelessWidget {
   final String tip;
   final Color moneyFontColor;
   final Color tipFontColor;
+  final double moneyFontSize;
+  final double tipFontSize;
 
-   MoneyShowWithTipsWidget({Key key, this.number, this.tip, this.moneyFontColor, this.tipFontColor});
+
+   MoneyShowWithTipsWidget({Key key, this.number, this.tip, this.moneyFontColor, this.tipFontColor, this.moneyFontSize, this.tipFontSize});
 
 
   @override
@@ -16,8 +19,8 @@ class MoneyShowWithTipsWidget extends StatelessWidget {
       height: upx(100),
       child: Column(
         children: [
-          Text(number.toString(), style: TextStyle(fontSize: upx(250/(number.toString().length)), fontWeight: FontWeight.w300, color: moneyFontColor),),
-          Text(tip, style: TextStyle(fontSize: upx(24), color: tipFontColor)),
+          Text(number.toString(), style: TextStyle(fontSize: upx(moneyFontSize ?? (250/(number.toString().length))), fontWeight: FontWeight.w300, color: moneyFontColor),),
+          Text(tip, style: TextStyle(fontSize: upx(tipFontSize ?? 24), color: tipFontColor)),
         ],
       ),
     );

@@ -16,13 +16,11 @@ class _IndexState extends State<Index> {
     BillPage(),
     AllPage(),
     BillPage(),
-    BillPage(),
   ];
 
   List navItem = [
     {'icon':Icons.table_chart,'title':'本月'},
     {'icon':Icons.payment,'title':'账单'},
-    {'icon':Icons.list,'title':'记录'},
     {'icon':Icons.person,'title':'我的'},
   ];
 

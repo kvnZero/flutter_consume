@@ -14,7 +14,7 @@ class _BillPageState extends State<BillPage> {
   Widget build(BuildContext context) {
 
     Color amColor = Color.fromRGBO(243, 226, 171, 1);
-    Color emColor = Color.fromRGBO(40, 61, 122, 1);
+    Color emColor = Color.fromRGBO(31, 64, 125, 1);
     Color pmColor = Color.fromRGBO(174, 193, 234, 1);
     Color csColor;
     List<Widget> widgets = [];
@@ -23,7 +23,6 @@ class _BillPageState extends State<BillPage> {
 
     if(today.hour >= 0 ){
       csColor = emColor;
-
     }
     if(today.hour >= 7){
       csColor = amColor;
@@ -36,7 +35,7 @@ class _BillPageState extends State<BillPage> {
     }
 
 
-    widgets.add(TitleWidget(title: "账单", backgroundColor: csColor, fontColor: Colors.white, fontSize: upx(40)));
+//    widgets.add(TitleWidget(title: "账单", backgroundColor: csColor, fontColor: Colors.white, fontSize: upx(40)));
     widgets.add(IndexMoneyWidget(payedMoney: 300.00, payMoney: 300.00,));
     widgets.add(RecordWidget(id: 1, name: '随便玩玩', money: 10, dateShow: '2/11', payDate: '10-11', type: '支付宝', status: 1,));
 
