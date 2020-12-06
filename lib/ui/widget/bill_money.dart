@@ -108,13 +108,13 @@ class _BillMoneyWidgetState extends State<BillMoneyWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                MoneyShowWithTipsWidget(number: payedMoney, tip: "已还金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor, moneyFontSize: 40),
+                MoneyShowWithTipsWidget(number: payedMoney.toString(), tip: "已还金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor, moneyFontSize: 40),
                 Container(
                   height: upx(100),
                   width: 1,
                   color: Colors.black26,
                 ),
-                MoneyShowWithTipsWidget(number: payMoney, tip: "总计金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor, moneyFontSize: 40,),
+                MoneyShowWithTipsWidget(number: payMoney.toString(), tip: "总计金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor, moneyFontSize: 40,),
               ],
             ),
           ],
@@ -122,55 +122,6 @@ class _BillMoneyWidgetState extends State<BillMoneyWidget> {
       ),
     );
 
-
-
-    return Column(
-      children: [
-        Container(
-            width: double.infinity,
-            height: upx(500),
-            decoration: new BoxDecoration(
-                image: new DecorationImage(
-                    image: new AssetImage(imgBack),
-                    fit: BoxFit.cover
-                )
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: AspectRatio(aspectRatio: 1,
-                    child: PieChart(
-                      PieChartData(
-                        sections: showingSections(),
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
-                        sectionsSpace: 0,
-                        centerSpaceRadius: 20,
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    MoneyShowWithTipsWidget(number: payedMoney, tip: "已还金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor, moneyFontSize: 40),
-                    Container(
-                      height: upx(100),
-                      width: 1,
-                      color: Colors.black26,
-                    ),
-                    MoneyShowWithTipsWidget(number: payMoney, tip: "总计金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor, moneyFontSize: 40,),
-                  ],
-                ),
-              ],
-            )
-        ),
-      ],
-    );
   }
 
   List<PieChartSectionData> showingSections() {
