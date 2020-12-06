@@ -15,11 +15,18 @@ class IndexMoneyWidget extends StatefulWidget {
   _IndexMoneyWidgetState createState() => _IndexMoneyWidgetState();
 }
 
-class _IndexMoneyWidgetState extends State<IndexMoneyWidget> {
+class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerProviderStateMixin{
 
   String month;
   double payedMoney;
   double payMoney;
+
+  double newPayedMoney;
+  double newPayMoney;
+
+  AnimationController controller;
+  Animation<double> payAnimation;
+  Animation<double> payedAnimation;
 
 
   @override
@@ -29,11 +36,47 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> {
     payedMoney = widget.payedMoney;
     payMoney = widget.payMoney;
 
+    controller = AnimationController(duration: Duration(milliseconds: 500), vsync: this);
+
+    payedAnimation = new Tween<double>(
+        begin: 0,
+        end: payedMoney
+    ).animate(new CurvedAnimation(
+      curve: Curves.linear,
+      parent: controller,
+    ));
+    payAnimation = new Tween<double>(
+        begin: 0,
+        end: payMoney
+    ).animate(new CurvedAnimation(
+      curve: Curves.linear,
+      parent: controller,
+    ));
+    controller.forward(from: 0.0);
+
     eventBus.on<MoneyChangeInEvent>().listen((event) {
       setState(() {
-        payedMoney += event.number;
-        payMoney   -= event.number;
+        newPayedMoney = payedMoney + event.number;
+        newPayMoney = payMoney - event.number;
+        payedAnimation = new Tween<double>(
+            begin: payedMoney,
+            end: newPayedMoney
+        ).animate(new CurvedAnimation(
+          curve: Curves.linear,
+          parent: controller,
+        ));
+
+        payAnimation = new Tween<double>(
+            begin: payMoney,
+            end: newPayMoney
+        ).animate(new CurvedAnimation(
+          curve: Curves.linear,
+          parent: controller,
+        ));
+        payedMoney = newPayedMoney;
+        payMoney   = newPayMoney;
       });
+      controller.forward(from: 0.0);
     });
     super.initState();
   }
@@ -87,13 +130,23 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    MoneyShowWithTipsWidget(number: payedMoney, tip: "已还金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor,),
+                    new AnimatedBuilder(
+                      animation: payedAnimation,
+                      builder: (BuildContext context, Widget child) {
+                        return new MoneyShowWithTipsWidget(number: payedAnimation.value.toStringAsFixed(2), tip: "已还金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor,);
+                      },
+                    ),
                     Container(
                       height: upx(150),
                       width: 1,
                       color: Colors.black26,
                     ),
-                    MoneyShowWithTipsWidget(number: payMoney, tip: "待还金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor,),
+                    new AnimatedBuilder(
+                      animation: payAnimation,
+                      builder: (BuildContext context, Widget child) {
+                        return new MoneyShowWithTipsWidget(number: payAnimation.value.toStringAsFixed(2), tip: "待还金额", moneyFontColor: moneyFontColor, tipFontColor: tipFontColor,);
+                      },
+                    ),
                   ],
                 ),
                 Container(

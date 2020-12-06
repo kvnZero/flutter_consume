@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/upx.dart';
 
 class MoneyShowWithTipsWidget extends StatelessWidget {
-  final double number;
+  final String number;
   final String tip;
   final Color moneyFontColor;
   final Color tipFontColor;
@@ -19,7 +19,7 @@ class MoneyShowWithTipsWidget extends StatelessWidget {
       height: upx(100),
       child: Column(
         children: [
-          Text(number.toString(), style: TextStyle(fontSize: upx(moneyFontSize ?? (250/(number.toString().length))), fontWeight: FontWeight.w300, color: moneyFontColor),),
+          Text(number, style: TextStyle(fontSize: upx(moneyFontSize ?? 50), fontWeight: FontWeight.w300, color: moneyFontColor),),
           Text(tip, style: TextStyle(fontSize: upx(tipFontSize ?? 24), color: tipFontColor)),
         ],
       ),
