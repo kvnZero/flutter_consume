@@ -9,7 +9,12 @@ class BillPage extends StatefulWidget {
   _BillPageState createState() => _BillPageState();
 }
 
-class _BillPageState extends State<BillPage> {
+class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
 
@@ -37,9 +42,9 @@ class _BillPageState extends State<BillPage> {
 
 //    widgets.add(TitleWidget(title: "账单", backgroundColor: csColor, fontColor: Colors.white, fontSize: upx(40)));
     widgets.add(IndexMoneyWidget(payedMoney: 300.00, payMoney: 300.00,));
-    widgets.add(RecordWidget(id: 1, name: '随便玩玩', money: 10, dateShow: '2/11', payDate: '10-11', type: '支付宝', status: 1,));
+    widgets.add(RecordWidget(id: 1, name: '随便玩玩', money: 100.51, dateShow: '2/11', payDate: '10-11', type: '支付宝', status: 1,));
 
-    widgets.add(RecordWidget(id: 2, name: '随便玩玩', money: 10, dateShow: '1/11', payDate: '10-11', type: '支付宝', status: 2,));
+    widgets.add(RecordWidget(id: 2, name: '随便玩玩', money: 100, dateShow: '1/11', payDate: '10-11', type: '支付宝', status: 2,));
 
     return Scaffold(
       resizeToAvoidBottomPadding: false,
