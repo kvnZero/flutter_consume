@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/upx.dart';
 import 'package:flutter_consume/ui/widget/common_title.dart';
+import 'package:vibration/vibration.dart';
 
 class SineCurve extends Curve {
   final double count;
@@ -20,9 +21,14 @@ class MyPage extends StatefulWidget {
   _MyPageState createState() => _MyPageState();
 }
 
-class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
+class _MyPageState extends State<MyPage> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController controller;
 
+  bool cloudSync = false;
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -61,8 +67,49 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: upx(20)),
+            margin: EdgeInsets.only(top: upx(20), bottom: upx(20)),
             child: Text('用户名', style: TextStyle(color: Colors.black54, fontSize: upx(42)),),
+          ),
+          Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            color: Color.fromRGBO(255, 255, 255, 0.8),
+            elevation: 0.5,
+            margin: EdgeInsets.symmetric(horizontal: upx(30)),
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: upx(20)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("云同步(待开发)"),
+                      Switch(value: cloudSync, onChanged: (value){
+                        setState(() {
+                          cloudSync = value;
+                        });
+                      })
+                    ],
+                  ),
+                  FlatButton(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    textTheme: ButtonTextTheme.accent,
+                      padding: EdgeInsets.zero,
+                        minWidth: double.infinity,
+                        onPressed: (){
+                          Vibration.vibrate(duration: 50);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("清空全部数据"),
+                          ],
+                        )
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       )
