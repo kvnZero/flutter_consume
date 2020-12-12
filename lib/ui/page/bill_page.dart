@@ -20,7 +20,6 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     month = today.month;
 

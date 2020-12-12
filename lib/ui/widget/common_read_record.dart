@@ -20,7 +20,6 @@ class _ReadRecordWidgetState extends State<ReadRecordWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

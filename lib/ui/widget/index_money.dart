@@ -32,7 +32,6 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
 
   @override
   void initState() {
-    // TODO: implement initState
     payedMoney = widget.payedMoney;
     payMoney = widget.payMoney;
 

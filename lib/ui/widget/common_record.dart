@@ -24,7 +24,6 @@ class _RecordWidgetState extends State<RecordWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     if(widget.status == 2){
       //已勾选
       selected = true;

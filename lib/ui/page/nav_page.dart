@@ -28,13 +28,12 @@ class _IndexState extends State<Index> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // TODOx: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     super.dispose();
   }

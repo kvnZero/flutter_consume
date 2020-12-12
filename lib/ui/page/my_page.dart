@@ -27,12 +27,10 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
   bool cloudSync = false;
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
     controller.forward();

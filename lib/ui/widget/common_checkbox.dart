@@ -25,7 +25,6 @@ class _CommonCheckboxState extends State<CommonCheckbox> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _value = widget.value;
     super.initState();
   }

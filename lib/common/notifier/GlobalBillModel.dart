@@ -8,7 +8,6 @@ class GlobalBillModel extends ChangeNotifier {
 
   @override
   void notifyListeners() {
-    // TODO: implement notifyListeners
     Global.saveBillData();
     super.notifyListeners();
   }

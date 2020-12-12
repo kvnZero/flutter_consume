@@ -24,7 +24,6 @@ class _BillMoneyWidgetState extends State<BillMoneyWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     payedMoney = widget.payedMoney;
     payMoney = widget.payMoney;
     super.initState();
