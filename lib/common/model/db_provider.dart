@@ -40,12 +40,12 @@ class DBProvider{
           "id INTEGER PRIMARY KEY,"
           "bill_id INTEGER,"
           "name TEXT,"
-          "value TEXT,"
+          "value TEXT"
           ")");
       await db.execute("CREATE TABLE Config ("
           "id INTEGER PRIMARY KEY,"
           "name TEXT,"
-          "value TEXT,"
+          "value TEXT"
           ")");
     });
   }

@@ -28,7 +28,7 @@ class BaseModel {
   Future<List> getAll() async {
     Database db = await DBProvider.db.database;
     List<Map> data = await db.query(this.tableName,
-        orderBy: 'date desc'
+        orderBy: 'create_time desc'
     );
     return data;
   }
