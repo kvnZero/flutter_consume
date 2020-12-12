@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/upx.dart';
 import 'package:flutter_consume/common/MoneyEvent.dart';
 import 'package:flutter_consume/ui/widget/common_checkbox.dart';
-import 'package:event_bus/event_bus.dart';
 
 class RecordWidget extends StatefulWidget {
   final int id;

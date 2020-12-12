@@ -46,6 +46,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
 
     List<Widget> widgets = [];
 
