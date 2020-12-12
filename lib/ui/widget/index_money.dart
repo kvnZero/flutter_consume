@@ -8,8 +8,9 @@ class IndexMoneyWidget extends StatefulWidget {
 
   final double payedMoney;
   final double payMoney;
+  final int month;
 
-  IndexMoneyWidget({Key key, this.payedMoney, this.payMoney}) : super(key: key);
+  IndexMoneyWidget({Key key, this.payedMoney, this.payMoney, this.month}) : super(key: key);
 
   @override
   _IndexMoneyWidgetState createState() => _IndexMoneyWidgetState();
@@ -32,7 +33,6 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
   @override
   void initState() {
     // TODO: implement initState
-    month = "12";
     payedMoney = widget.payedMoney;
     payMoney = widget.payMoney;
 
@@ -151,7 +151,7 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
                 ),
                 Container(
                   margin: EdgeInsets.only(top: upx(20)),
-                  child: Text("${this.month}月账单", style: TextStyle(fontSize: upx(30), color: tipFontColor),),
+                  child: Text("${widget.month.toString()}月账单", style: TextStyle(fontSize: upx(30), color: tipFontColor),),
                   height: upx(50),
                 )
               ],
