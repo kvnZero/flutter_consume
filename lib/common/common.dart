@@ -20,6 +20,7 @@ Future<List> getMonthData(int month, List billData) async {
         DateTime recordDate = DateTime.parse(ele['create_time']);
         if(recordDate.month == month || data['status'] == 1){
           data['status'] = 1;
+          data['record_id'] = ele['id'];
         }
       });
       result.add(data);

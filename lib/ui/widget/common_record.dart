@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_consume/common/model/record_model.dart';
 import 'package:flutter_consume/common/upx.dart';
 import 'package:flutter_consume/common/MoneyEvent.dart';
 import 'package:flutter_consume/ui/widget/common_checkbox.dart';
 
 class RecordWidget extends StatefulWidget {
   final int id;
+  final int recordId;
   final String name;
   final double money;
   final String dateShow;
@@ -12,7 +14,7 @@ class RecordWidget extends StatefulWidget {
   final String type;
   final int status;
 
-  RecordWidget({Key key, this.id, this.name, this.money, this.dateShow, this.payDate, this.type, this.status});
+  RecordWidget({Key key, this.id, this.name, this.money, this.dateShow, this.payDate, this.type, this.status, this.recordId});
 
   @override
   _RecordWidgetState createState() => _RecordWidgetState();
@@ -20,14 +22,18 @@ class RecordWidget extends StatefulWidget {
 
 class _RecordWidgetState extends State<RecordWidget> {
 
+  int billId;
+  int recordId;
   bool selected = false;
 
   @override
   void initState() {
-    if(widget.status == 2){
+    if(widget.status == 1){
       //已勾选
       selected = true;
     }
+    billId = widget.id;
+    recordId = widget.recordId;
     super.initState();
   }
 
@@ -55,6 +61,25 @@ class _RecordWidgetState extends State<RecordWidget> {
                       setState(() {
                         selected = value;
                       });
+                      if (value) {
+                        if(recordId == 0) {
+                          Future<int> newRecordId = RecordModel().insert({
+                            "bill_id": billId
+                          });
+                          newRecordId.then((value) {
+                            setState(() {
+                              recordId = value;
+                            });
+                          });
+                        }
+                      }else{
+                        if(recordId>0) {
+                          RecordModel().delete(recordId);
+                          setState(() {
+                            recordId = 0;
+                          });
+                        }
+                      }
                       eventBus.fire(MoneyChangeInEvent(selected ? widget.money : -widget.money));
                     },
                   )

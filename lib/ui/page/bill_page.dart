@@ -39,6 +39,7 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
           payDate: element['pay_time'],
           type: getTypeText(element['type']),
           status: element['status'],
+          recordId: element['record_id'] ?? 0,
         ));
       });
     });
