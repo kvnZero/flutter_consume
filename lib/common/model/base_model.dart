@@ -19,8 +19,8 @@ class BaseModel {
   Future<List> getBy(key, value) async {
     Database db = await DBProvider.db.database;
     List<Map> data = await db.query(this.tableName,
-        where: '? = ?',
-        whereArgs: [key, value]
+        where: key + ' = ?',
+        whereArgs: [value]
     );
     return data;
   }
