@@ -26,21 +26,25 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
     List billData = jsonDecode(GlobalBillModel().billData);
     Future<Map> monthData = getMonthMoneyData(month, billData);
     monthData.then((e) {
-      widgets.add(IndexMoneyWidget(payedMoney: e['payed']/100, payMoney: e['pay']/100, month: month,));
+      setState(() {
+        widgets.add(IndexMoneyWidget(payedMoney: e['payed']/100, payMoney: e['pay']/100, month: month,));
+      });
     });
     Future<List> recordData = getMonthData(month, billData);
     recordData.then((e) {
-      e.forEach((element) {
-        widgets.add(RecordWidget(
-          id: element['id'],
-          name: element['title'],
-          money: element['pay_money']/100,
-          dateShow: element['count'].toString()+'/'+element['number'].toString(),
-          payDate: element['pay_time'],
-          type: getTypeText(element['type']),
-          status: element['status'],
-          recordId: element['record_id'] ?? 0,
-        ));
+      setState(() {
+        e.forEach((element) {
+          widgets.add(RecordWidget(
+            id: element['id'],
+            name: element['title'],
+            money: element['pay_money']/100,
+            dateShow: element['count'].toString()+'/'+element['number'].toString(),
+            payDate: element['pay_time'],
+            type: getTypeText(element['type']),
+            status: element['status'],
+            recordId: element['record_id'] ?? 0,
+          ));
+        });
       });
     });
   }
