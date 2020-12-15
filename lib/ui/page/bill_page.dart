@@ -50,7 +50,6 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 
   @override
