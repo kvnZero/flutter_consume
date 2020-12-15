@@ -59,8 +59,11 @@ Future<Map> getMonthMoneyData(int month, List billData) async{
 
 String getTypeText(int type){
   Map types = new Map.from({
-    1: '花呗',
-    2: '信用卡',
+    1: '生活日常',
+    2: '快乐美食',
+    3: '数码产品',
+    4: '美妆美容',
+    5: '其他'
   });
   return types[type];
 }
