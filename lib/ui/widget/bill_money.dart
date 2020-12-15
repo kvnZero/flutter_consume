@@ -9,7 +9,10 @@ class BillMoneyWidget extends StatefulWidget {
   final double payedMoney;
   final double payMoney;
 
-  BillMoneyWidget({Key key, this.payedMoney, this.payMoney}) : super(key: key);
+  final Widget addPage;
+
+
+  BillMoneyWidget({Key key, this.payedMoney, this.payMoney, this.addPage}) : super(key: key);
 
   @override
   _BillMoneyWidgetState createState() => _BillMoneyWidgetState();
@@ -82,7 +85,13 @@ class _BillMoneyWidgetState extends State<BillMoneyWidget> {
                     child: IconButton(
                       padding: EdgeInsets.zero,
                       splashColor: Colors.transparent,
-                      icon: Icon(Icons.add, size: upx(32), color: Colors.white,), onPressed: (){},
+                      icon: Icon(Icons.add, size: upx(32), color: Colors.white,),
+                      onPressed: (){
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(builder: (context) => widget.addPage),
+                        );
+                      },
                     ),
                   )
                 ],
