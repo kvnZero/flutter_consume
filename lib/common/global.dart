@@ -7,18 +7,18 @@ class Global {
 
   static SharedPreferences _prefs;
 
-  static String billData;
+//  static String billData;
 
   static Future init() async{
     _prefs = await SharedPreferences.getInstance();
     var data = _prefs.getString("bill_data");
-    if(data == null){
-      billData = jsonEncode(await BillModel().getAll());
-      saveBillData();
-    }
+//    if(data == null){
+//      billData = jsonEncode(await BillModel().getAll());
+//      saveBillData();
+//    }
   }
 
-  static saveBillData(){
-    _prefs.setString("bill_data", billData);
-  }
+//  static saveBillData(){
+//    _prefs.setString("bill_data", billData);
+//  }
 }

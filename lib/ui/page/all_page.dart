@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/common.dart';
+import 'package:flutter_consume/common/model/bill_model.dart';
 import 'package:flutter_consume/common/notifier/GlobalBillModel.dart';
 import 'package:flutter_consume/ui/page/add_bill_page.dart';
 import 'package:flutter_consume/ui/widget/bill_money.dart';
@@ -12,7 +14,7 @@ class AllPage extends StatefulWidget {
   _AllPageState createState() => _AllPageState();
 }
 
-class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
+class _AllPageState extends State<AllPage> {
 
   double payMoney = 0;
   double payedMoney = 0;
@@ -21,23 +23,46 @@ class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
   List<Widget> widgets = [];
 
   @override
-  bool get wantKeepAlive => true;
-
-  @override
   void initState() {
     super.initState();
-    List billData = jsonDecode(GlobalBillModel().billData);
-    Future<Map> showData = getBillShowData(billData);
-    showData.then((value){
+    BillModel().getAll().then((value) {
+     _flush(value);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            child: Column(children: widgets),
+          ),
+        ],
+      ),
+    );
+  }
+  Future<void> _flush(List billList) async {
+    Future<Map> showData = getBillShowData(billList);
+    showData.then((value) {
       setState(() {
+        widgets.clear();
         widgets.add(
             BillMoneyWidget(
               payedMoney: value['allData']['payed'] / 100,
               payMoney: value['allData']['pay'] / 100,
               addPage: new AddBillPage(),
+              addThen: (e){
+                BillModel().getAll().then((value) {
+                  _flush(value);
+                });
+                print(1);
+              },
             )
         );
-        for(int i = 0; i<value['billData'].length; i++) {
+        for (int i = 0; i < value['billData'].length; i++) {
           widgets.add(ReadRecordWidget(
               id: value['billData'][i]['id'],
               name: value['billData'][i]['title'],
@@ -50,24 +75,4 @@ class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
       });
     });
   }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          Container(
-            child: Column(
-              children: widgets,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
-
-

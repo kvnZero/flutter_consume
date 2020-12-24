@@ -28,7 +28,6 @@ Future<List> getMonthData(int month, List billData) async {
     }
   }
 
-  print(result);
   return result;
 }
 

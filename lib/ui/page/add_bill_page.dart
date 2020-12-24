@@ -28,7 +28,7 @@ class _AddBillPageState extends State<AddBillPage> {
   int source;
   String number;
   String date;
-  String money;
+  double money;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -163,7 +163,7 @@ class _AddBillPageState extends State<AddBillPage> {
                             },
                             onChanged: (value){
                               setState(() {
-                                this.money = value;
+                                this.money = double.parse(value);
                               });
                             },
                             autofocus: false,
@@ -183,7 +183,7 @@ class _AddBillPageState extends State<AddBillPage> {
                           color: Color(0xFFFFA53E),
                           onPressed: (){
                             if (_formKey.currentState.validate()) {
-                              BillModel().insert({
+                              Future<int> newId =  BillModel().insert({
                                 "title": title,
                                 "type": type,
                                 "number": number,
@@ -191,7 +191,12 @@ class _AddBillPageState extends State<AddBillPage> {
                                 "pay_money": money * 100,
                                 "source": getSourceText(source)
                               });
-                              GlobalBillModel().billData = jsonEncode(BillModel().getAll());
+                              newId.then((value){
+                                Future<List> billData=  BillModel().getAll();
+                                billData.then((e){
+                                  GlobalBillModel().billList = e;
+                                });
+                              });
                             }
                           },
                           child: Text(

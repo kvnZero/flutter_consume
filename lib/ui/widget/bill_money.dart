@@ -10,9 +10,10 @@ class BillMoneyWidget extends StatefulWidget {
   final double payMoney;
 
   final Widget addPage;
+  final ValueChanged<void> addThen;
 
 
-  BillMoneyWidget({Key key, this.payedMoney, this.payMoney, this.addPage}) : super(key: key);
+  BillMoneyWidget({Key key, this.payedMoney, this.payMoney, this.addPage, this.addThen}) : super(key: key);
 
   @override
   _BillMoneyWidgetState createState() => _BillMoneyWidgetState();
@@ -90,7 +91,7 @@ class _BillMoneyWidgetState extends State<BillMoneyWidget> {
                         Navigator.push(
                           context,
                           new MaterialPageRoute(builder: (context) => widget.addPage),
-                        );
+                        ).then(widget.addThen);
                       },
                     ),
                   )

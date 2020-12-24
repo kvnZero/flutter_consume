@@ -1,18 +1,13 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_consume/common/global.dart';
+
+import 'package:flutter/widgets.dart';
 
 class GlobalBillModel extends ChangeNotifier {
-  String get _billData => Global.billData;
 
-  String get billData => _billData;
+  List _billList = [];
+  List get billList => _billList;
 
-  @override
-  void notifyListeners() {
-    Global.saveBillData();
-    super.notifyListeners();
-  }
-
-  set billData(String text){
+  set billList(List billList){
+    this._billList = billList;
     notifyListeners();
   }
 }
