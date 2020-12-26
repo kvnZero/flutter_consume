@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_consume/common/Event.dart';
 import 'package:flutter_consume/ui/page/all_page.dart';
 import 'package:flutter_consume/ui/page/bill_page.dart';
 import 'package:flutter_consume/ui/page/my_page.dart';

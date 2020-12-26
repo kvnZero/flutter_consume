@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/Event.dart';
 import 'package:flutter_consume/common/common.dart';
 import 'package:flutter_consume/common/model/bill_model.dart';
-import 'package:flutter_consume/common/notifier/GlobalBillModel.dart';
 import 'package:flutter_consume/ui/page/add_bill_page.dart';
 import 'package:flutter_consume/ui/widget/bill_money.dart';
 import 'package:flutter_consume/ui/widget/common_read_record.dart';

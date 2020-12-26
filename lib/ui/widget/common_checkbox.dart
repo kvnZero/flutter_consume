@@ -29,7 +29,6 @@ class _CommonCheckboxState extends State<CommonCheckbox> {
 
   @override
   void didUpdateWidget(covariant CommonCheckbox oldWidget) {
-    // TODO: implement didUpdateWidget
     setState(() {
       _value = widget.value;
     });

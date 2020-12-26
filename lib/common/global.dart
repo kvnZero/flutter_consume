@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter_consume/common/model/bill_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Global {
