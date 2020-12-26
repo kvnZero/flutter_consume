@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/upx.dart';
-import 'package:flutter_consume/common/MoneyEvent.dart';
+import 'package:flutter_consume/common/Event.dart';
 import 'package:flutter_consume/ui/widget/common_money_show.dart';
 import 'dart:ui';
 

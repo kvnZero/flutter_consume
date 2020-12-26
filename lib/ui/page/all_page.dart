@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_consume/common/Event.dart';
 import 'package:flutter_consume/common/common.dart';
 import 'package:flutter_consume/common/model/bill_model.dart';
 import 'package:flutter_consume/common/notifier/GlobalBillModel.dart';
@@ -14,7 +15,7 @@ class AllPage extends StatefulWidget {
   _AllPageState createState() => _AllPageState();
 }
 
-class _AllPageState extends State<AllPage> {
+class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
 
   double payMoney = 0;
   double payedMoney = 0;
@@ -22,11 +23,26 @@ class _AllPageState extends State<AllPage> {
   List billData = [];
   List<Widget> widgets = [];
 
+  int flushVersion = 0;
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     super.initState();
     BillModel().getAll().then((value) {
      _flush(value);
+    });
+    eventBus.on<UpdateChangeInEvent>().listen((event) {
+      if(event.version != flushVersion){
+        BillModel().getAll().then((value) {
+          _flush(value);
+        });
+        setState(() {
+          flushVersion = event.version;
+        });
+      }
     });
   }
 
@@ -58,7 +74,6 @@ class _AllPageState extends State<AllPage> {
                 BillModel().getAll().then((value) {
                   _flush(value);
                 });
-                print(1);
               },
             )
         );

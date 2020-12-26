@@ -7,3 +7,9 @@ class MoneyChangeInEvent {
 
   MoneyChangeInEvent(this.number);
 }
+
+class UpdateChangeInEvent {
+  int version = 0;
+
+  UpdateChangeInEvent(this.version);
+}

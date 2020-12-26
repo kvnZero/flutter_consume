@@ -4,15 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_consume/common/common.dart';
 import 'package:flutter_consume/common/model/bill_model.dart';
-import 'package:flutter_consume/common/notifier/GlobalBillModel.dart';
 import 'package:flutter_consume/common/upx.dart';
-import 'package:flutter_consume/ui/widget/bill_money.dart';
 import 'package:flutter_consume/ui/widget/common_card_button.dart';
 import 'package:flutter_consume/ui/widget/common_icon_select.dart';
-import 'package:flutter_consume/ui/widget/common_read_record.dart';
 import 'package:flutter_consume/ui/widget/common_title.dart';
-import 'package:pattern_formatter/date_formatter.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
+import 'package:flutter_consume/common/Event.dart';
 
 class AddBillPage extends StatefulWidget {
   @override
@@ -192,10 +189,7 @@ class _AddBillPageState extends State<AddBillPage> {
                                 "source": getSourceText(source)
                               });
                               newId.then((value){
-                                Future<List> billData=  BillModel().getAll();
-                                billData.then((e){
-                                  GlobalBillModel().billList = e;
-                                });
+                                eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
                               });
                             }
                           },
@@ -221,14 +215,14 @@ class _AddBillPageState extends State<AddBillPage> {
       break;
       default: {
         //还没选择
-        widgetList.add(CardButton(title: Text('随便填填', style: TextStyle(fontSize: upx(38)),), icon: Icon(Icons.add, size: upx(40),),
+        widgetList.add(CardButton(title: Text('分期债务', style: TextStyle(fontSize: upx(38)),), icon: Icon(Icons.update, size: upx(60),),
           onTap: (){
             setState(() {
               switchType = 1;
             });
           },
         ));
-        widgetList.add(CardButton(title: Text('详细填写', style: TextStyle(fontSize: upx(38)),), icon: Icon(Icons.add_box, size: upx(40),),
+        widgetList.add(CardButton(title: Text('一次性借款', style: TextStyle(fontSize: upx(38)),), icon: Icon(Icons.add, size: upx(60),),
           onTap: (){
             setState(() {
               switchType = 2;

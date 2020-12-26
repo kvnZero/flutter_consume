@@ -23,7 +23,7 @@ class CardButton extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      this.icon ?? null,
+                      Container(margin: EdgeInsets.only(right: 10),child: this.icon,) ?? null,
                       this.title ?? '',
                     ],
                   ),

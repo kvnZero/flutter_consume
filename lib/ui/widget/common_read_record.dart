@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/model/bill_model.dart';
 import 'package:flutter_consume/common/upx.dart';
+import 'package:flutter_consume/common/Event.dart';
 
 class ReadRecordWidget extends StatefulWidget {
   final int id;
@@ -88,8 +89,9 @@ class _ReadRecordWidgetState extends State<ReadRecordWidget> {
           color: Colors.black,
         )
       ],),
-      onTap: (){
+      onDoubleTap: (){
         BillModel().delete(widget.id);
+        eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
       },
     );
   }
