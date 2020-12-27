@@ -30,7 +30,6 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
     });
     eventBus.on<UpdateChangeInEvent>().listen((event) {
       if(event.version != flushVersion){
-        print(flushVersion);
         BillModel().getAll().then((value) {
           _flush(value);
         });
