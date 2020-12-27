@@ -81,6 +81,31 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
   }
 
   @override
+  void didUpdateWidget(covariant IndexMoneyWidget oldWidget) {
+    setState(() {
+      payAnimation = new Tween<double>(
+          begin: payMoney,
+          end: widget.payMoney
+      ).animate(new CurvedAnimation(
+        curve: Curves.linear,
+        parent: controller
+      ));
+      payedAnimation = new Tween<double>(
+          begin: payedMoney,
+          end: widget.payedMoney
+      ).animate(new CurvedAnimation(
+        curve: Curves.linear,
+        parent: controller
+      ));
+      payedMoney = widget.payedMoney;
+      payMoney = widget.payMoney;
+    });
+    controller.forward(from: 0.0);
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     var today = DateTime.now();
