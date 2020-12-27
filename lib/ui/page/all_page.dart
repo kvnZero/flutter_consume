@@ -73,6 +73,7 @@ class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
                   _flush(value);
                 });
               },
+              billData: billList,
             )
         );
         for (int i = 0; i < value['billData'].length; i++) {
@@ -83,7 +84,8 @@ class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
               payedMoney: value['billData'][i]['payed'] / 100,
               dateShow: value['billData'][i]['date_show'],
               payDate: value['billData'][i]['pay_time'],
-              type: value['billData'][i]['source']));
+              typeIcon: getTypeIcon(value['billData'][i]['type']),
+              source: value['billData'][i]['source']));
         }
       });
     });

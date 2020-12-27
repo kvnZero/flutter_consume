@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/upx.dart';
@@ -9,11 +11,13 @@ class BillMoneyWidget extends StatefulWidget {
   final double payedMoney;
   final double payMoney;
 
+  final List billData;
+
   final Widget addPage;
   final ValueChanged<void> addThen;
 
 
-  BillMoneyWidget({Key key, this.payedMoney, this.payMoney, this.addPage, this.addThen}) : super(key: key);
+  BillMoneyWidget({Key key, this.payedMoney, this.payMoney, this.addPage, this.addThen, this.billData}) : super(key: key);
 
   @override
   _BillMoneyWidgetState createState() => _BillMoneyWidgetState();
@@ -134,50 +138,29 @@ class _BillMoneyWidgetState extends State<BillMoneyWidget> {
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      final isTouched = i == touchedIndex;
-      final double fontSize = isTouched ? 25 : 16;
-      final double radius = isTouched ? 60 : 50;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        default:
-          return null;
+    List<PieChartSectionData> chartData = new List();
+    Map billMoney = new Map();
+    int allMoney = 0;
+    widget.billData.forEach((element) {
+      if(billMoney[element['type']] == null){
+        billMoney[element['type']] = 0;
       }
+      billMoney[element['type']] += element['pay_money'];
+      allMoney += element['pay_money'];
     });
+
+    billMoney.forEach((key, value) {
+      final double fontSize = 16;
+      final double radius = 50;
+      chartData.add(new PieChartSectionData(
+        color: Color.fromRGBO(Random().nextInt(100), Random().nextInt(256), Random().nextInt(256), 1),
+        value: value * 1.00,
+        title: ((value/allMoney)*100).round().toString()+'%',
+        radius: radius,
+        titleStyle: TextStyle(
+            fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+      ));
+    });
+    return chartData;
   }
 }
