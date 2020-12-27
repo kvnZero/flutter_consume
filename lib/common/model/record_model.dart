@@ -7,4 +7,8 @@ class RecordModel extends BaseModel {
   Future<List> getByBillId(id) async {
     return getBy('bill_id', id);
   }
+
+  Future<bool> deleteByBillId(billId) {
+    return deleteBy("bill_id", billId);
+  }
 }

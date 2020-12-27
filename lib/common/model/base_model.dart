@@ -59,4 +59,15 @@ class BaseModel {
     );
     return count>0 ? true : false;
   }
+
+
+  Future<bool> deleteBy(key, value) async {
+    Database db = await DBProvider.db.database;
+    int count = await db.delete(this.tableName,
+      where: key+' = ?',
+      whereArgs: [value],
+    );
+
+    return count>0 ? true : false;
+  }
 }
