@@ -1,5 +1,7 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/model/bill_model.dart';
+import 'package:flutter_consume/common/model/record_model.dart';
 import 'package:flutter_consume/common/upx.dart';
 import 'package:flutter_consume/common/Event.dart';
 
@@ -10,9 +12,10 @@ class ReadRecordWidget extends StatefulWidget {
   final double payMoney;
   final String dateShow;
   final String payDate;
-  final String type;
+  final String source;
+  final IconData typeIcon;
 
-  ReadRecordWidget({Key key, this.id, this.name, this.payedMoney, this.payMoney, this.dateShow, this.payDate, this.type});
+  ReadRecordWidget({Key key, this.id, this.name, this.payedMoney, this.payMoney, this.dateShow, this.payDate, this.typeIcon, this.source});
 
   @override
   _ReadRecordWidgetState createState() => _ReadRecordWidgetState();
@@ -33,7 +36,7 @@ class _ReadRecordWidgetState extends State<ReadRecordWidget> {
         Container(
           margin: EdgeInsets.all(upx(15)),
           padding: EdgeInsets.all(upx(5)),
-          height: upx(120),
+          height: upx(130),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -43,7 +46,7 @@ class _ReadRecordWidgetState extends State<ReadRecordWidget> {
                       width: upx(50),
                       height: upx(50),
                       margin: EdgeInsets.only(right: 10),
-                      child: Icon(Icons.person, size: upx(30),)
+                      child: Icon(widget.typeIcon, size: upx(38),)
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +60,7 @@ class _ReadRecordWidgetState extends State<ReadRecordWidget> {
                           ),
                           Container(
                             width: upx(400),
-                            child: Text(widget.type, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300,color: Colors.black26),),
+                            child: Text(widget.source, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300,color: Colors.black26),),
                           ),
                         ],
                       ),
@@ -90,8 +93,22 @@ class _ReadRecordWidgetState extends State<ReadRecordWidget> {
         )
       ],),
       onDoubleTap: (){
-        BillModel().delete(widget.id);
-        eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.WARNING,
+          animType: AnimType.BOTTOMSLIDE,
+          title: '是否确定删除该条记录',
+          desc: '删除后不能恢复记录, 还款记录也将被删除',
+          btnOkText: '删除',
+          btnOkOnPress: () {
+            BillModel().delete(widget.id);
+            RecordModel().deleteByBillId(widget.id);
+            eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
+          },
+          btnCancelText: '不删了',
+          btnCancelOnPress: () {
+          },
+        )..show();
       },
     );
   }
