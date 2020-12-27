@@ -9,7 +9,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_consume"
+        android:label="理智消费"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
