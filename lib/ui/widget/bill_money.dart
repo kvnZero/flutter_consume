@@ -38,6 +38,15 @@ class _BillMoneyWidgetState extends State<BillMoneyWidget> {
   }
 
   @override
+  void didUpdateWidget(covariant BillMoneyWidget oldWidget) {
+    setState(() {
+      payedMoney = widget.payedMoney;
+      payMoney = widget.payMoney;
+    });
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     var today = DateTime.now();
