@@ -162,6 +162,7 @@ class _AddBillPageState extends State<AddBillPage> {
                             },
                             onChanged: (value){
                               setState(() {
+                                value = value.replaceAll(",", "");
                                 this.money = double.parse(value);
                               });
                             },
@@ -348,6 +349,7 @@ class _AddBillPageState extends State<AddBillPage> {
                                 },
                                 onChanged: (value){
                                   setState(() {
+                                    value = value.replaceAll(",", "");
                                     this.money = double.parse(value);
                                   });
                                 },
