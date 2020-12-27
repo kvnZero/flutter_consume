@@ -35,6 +35,7 @@ dependencies:
   path_provider: ^1.6.24
   shared_preferences: ^0.5.12+4
   pattern_formatter: ^1.0.2
+  awesome_dialog: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -82,3 +83,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: AliIcon
+      fonts:
+        - asset: assets/fonts/iconfont.ttf
