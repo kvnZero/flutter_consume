@@ -103,7 +103,7 @@ class _ReadRecordWidgetState extends State<ReadRecordWidget> {
           btnOkOnPress: () {
             BillModel().delete(widget.id);
             RecordModel().deleteByBillId(widget.id);
-            eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
+            eventBus.fire(UpdateChangeInEvent(DateTime.now().millisecond));
           },
           btnCancelText: '不删了',
           btnCancelOnPress: () {
