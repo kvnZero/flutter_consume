@@ -30,16 +30,20 @@ class _RecordWidgetState extends State<RecordWidget> {
 
   @override
   void initState() {
-    if(widget.status == 1){
-      //已勾选
-      selected = true;
-    }
+    selected = (widget.status == 1);
     billId = widget.id;
     recordId = widget.recordId;
     payedNumber = widget.payedNumber;
     super.initState();
   }
 
+  @override
+  void didUpdateWidget(covariant RecordWidget oldWidget) {
+    setState(() {
+      selected = (widget.status == 1);
+    });
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
