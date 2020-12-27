@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_consume/common/AliIcon.dart';
 import 'package:flutter_consume/common/model/record_model.dart';
 
 Future<List> getMonthData(int month, List billData) async {
@@ -58,7 +59,7 @@ Future<Map> getMonthMoneyData(int month, List billData) async{
 }
 
 String getTypeText(int type){
-  Map types = new Map.from({
+  Map types = Map.from({
     1: '生活日常',
     2: '快乐美食',
     3: '数码产品',
@@ -68,24 +69,35 @@ String getTypeText(int type){
   return types[type];
 }
 
+IconData getTypeIcon(int type){
+  Map types = Map.from({
+    1: AliIcon.kafei,
+    2: AliIcon.huabei,
+    3: AliIcon.shouji,
+    4: AliIcon.kouhong,
+    5: AliIcon.liebiao
+  });
+  return types[type];
+}
+
 List getAllTypeInfo(){
   List types = [
-    {"id": 1, "title": "生活日常", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
-    {"id": 2, "title": "快乐美食", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
-    {"id": 3, "title": "数码产品", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
-    {"id": 4, "title": "美妆美容", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
-    {"id": 5, "title": "其他", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
+    {"id": 1, "title": "生活日常", "icon": AliIcon.kafei},
+    {"id": 2, "title": "快乐美食", "icon": AliIcon.huabei},
+    {"id": 3, "title": "数码产品", "icon": AliIcon.shouji},
+    {"id": 4, "title": "美妆美容", "icon": AliIcon.kouhong},
+    {"id": 5, "title": "其他", "icon": AliIcon.liebiao},
   ];
   return types;
 }
 
 List getAllSourceInfo(){
   List types = [
-    {"id": 1, "title": "花呗/借呗", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
-    {"id": 2, "title": "分期消费", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
-    {"id": 3, "title": "信用卡", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
-    {"id": 4, "title": "借款", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
-    {"id": 5, "title": "贷款", "icon": IconData(Icons.add_box.codePoint, fontFamily: 'MaterialIcons')},
+    {"id": 1, "title": "花呗/借呗", "icon": AliIcon.huabei},
+    {"id": 2, "title": "分期消费", "icon": AliIcon.tianmaotigongfapiao},
+    {"id": 3, "title": "信用卡", "icon": AliIcon.xinyongqiafenqi},
+    {"id": 4, "title": "借款", "icon": AliIcon.jiage},
+    {"id": 5, "title": "贷款", "icon": AliIcon.tianmaohuodaofukuan},
   ];
   return types;
 }
