@@ -98,7 +98,7 @@ class _ReadRecordWidgetState extends State<ReadRecordWidget> {
           dialogType: DialogType.WARNING,
           animType: AnimType.BOTTOMSLIDE,
           title: '是否确定删除该条记录',
-          desc: '删除后不能恢复记录, 还款记录也将被删除',
+          desc: "正在删除\"${widget.name}\"记录\n删除后不能恢复记录, 还款记录也将被删除",
           btnOkText: '删除',
           btnOkOnPress: () {
             BillModel().delete(widget.id);

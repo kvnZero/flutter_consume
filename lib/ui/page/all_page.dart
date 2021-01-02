@@ -46,6 +46,7 @@ class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: ListView(

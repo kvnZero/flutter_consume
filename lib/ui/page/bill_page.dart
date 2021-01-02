@@ -42,7 +42,7 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
 
   @override
   Widget build(BuildContext context) {
-
+    super.build(context);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: ListView(
