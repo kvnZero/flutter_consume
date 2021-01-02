@@ -68,7 +68,6 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
               height: upx(200),
               width: upx(200),
               child: InkWell(
-                child: iconPath != null ? Image.file(new File(iconPath)) : Container(),
                 onTap: (){
                   Future<PickedFile> pickedFile = picker.getImage(source: ImageSource.gallery);
                   pickedFile.then((value) {
@@ -81,8 +80,14 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
                 },
               ),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(90),
-                  color: Colors.lightBlue[600]
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.lightBlue[600],
+                  image: iconPath !=null ? DecorationImage(
+                    fit: BoxFit.cover,
+                    image: FileImage(
+                        new File(iconPath)
+                    )
+                  ) : null,
               ),
             ),
           ),
