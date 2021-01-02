@@ -185,11 +185,11 @@ class _AddBillPageState extends State<AddBillPage> {
                             if (_formKey.currentState.validate()) {
                               Future<int> newId =  BillModel().insert({
                                 "title": title,
-                                "type": type,
-                                "number": number,
-                                "pay_time": date,
-                                "pay_money": money * 100,
-                                "source": getSourceText(source)
+                                "type": type ?? 1,
+                                "number": number ?? 1,
+                                "pay_time": date ?? 1,
+                                "pay_money": (money ?? 1) * 100,
+                                "source": getSourceText(source ?? 1)
                               });
                               newId.then((value){
                                 eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
@@ -228,8 +228,6 @@ class _AddBillPageState extends State<AddBillPage> {
       case 2: {
         this.type = 5;
         this.source = 5;
-        this.number = "1";
-        this.date = "1";
         widgetList.add(
             Form(
                 key: _formKey,
@@ -320,6 +318,7 @@ class _AddBillPageState extends State<AddBillPage> {
                                 onChanged: (value){
                                   setState(() {
                                     this.date = value;
+                                    print(this.date);
                                   });
                                 },
                                 autofocus: false,
@@ -372,11 +371,11 @@ class _AddBillPageState extends State<AddBillPage> {
                                 if (_formKey.currentState.validate()) {
                                   Future<int> newId =  BillModel().insert({
                                     "title": title,
-                                    "type": type,
-                                    "number": number,
-                                    "pay_time": date,
-                                    "pay_money": money * 100,
-                                    "source": getSourceText(source)
+                                    "type": type ?? 1,
+                                    "number": number ?? 1,
+                                    "pay_time": date ?? 1,
+                                    "pay_money": (money ?? 1) * 100,
+                                    "source": getSourceText(source ?? 1)
                                   });
                                   newId.then((value){
                                     eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
