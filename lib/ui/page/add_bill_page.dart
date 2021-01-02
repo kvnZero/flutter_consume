@@ -318,7 +318,6 @@ class _AddBillPageState extends State<AddBillPage> {
                                 onChanged: (value){
                                   setState(() {
                                     this.date = value;
-                                    print(this.date);
                                   });
                                 },
                                 autofocus: false,
