@@ -30,8 +30,10 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
   final picker = ImagePicker();
 
   bool cloudSync = false;
+  bool editName  = false;
 
   String iconPath;
+  String name;
 
   @override
   bool get wantKeepAlive => true;
@@ -40,6 +42,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
   void initState() {
     super.initState();
     iconPath = Global.iconPath;
+    name = Global.name ?? '';
     controller = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
     controller.forward();
   }
@@ -55,6 +58,8 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
     super.build(context);
 
     List<Widget> widgets = [];
+
+    String _name = "";
 
     widgets.add(TitleWidget(title: "我的", fontSize: upx(40),));
 
@@ -93,7 +98,40 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
           ),
           Container(
             margin: EdgeInsets.only(top: upx(20), bottom: upx(20)),
-            child: Text('用户名', style: TextStyle(color: Colors.black54, fontSize: upx(42)),),
+            child: InkWell(
+              splashColor: Colors.transparent,
+              child: editName ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: upx(300),
+                    height: 40,
+                    child: TextFormField(
+                      maxLength: 12,
+                      initialValue: name,
+                      onChanged: (value){
+                        _name = value;
+                      },
+                      onEditingComplete: (){
+                        setState(() {
+                          if(_name.isNotEmpty){
+                            name = _name;
+                            Global.name = name;
+                            Global.saveName();
+                          }
+                          editName = false;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ) : Text(name.isEmpty ? '点这设置名字' : name, style: TextStyle(color: Colors.black54, fontSize: upx(42)),),
+              onTap: (){
+                setState(() {
+                  editName = !editName;
+                });
+              },
+            ),
           ),
           Card(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15.0))),
