@@ -82,7 +82,7 @@ IconData getTypeIcon(int type){
 List getAllTypeInfo(){
   List types = [
     {"id": 1, "title": "生活日常", "icon": AliIcon.kafei},
-    {"id": 2, "title": "快乐美食", "icon": AliIcon.huabei},
+    {"id": 2, "title": "快乐美食", "icon": AliIcon.hanbao},
     {"id": 3, "title": "数码产品", "icon": AliIcon.shouji},
     {"id": 4, "title": "美妆美容", "icon": AliIcon.kouhong},
     {"id": 5, "title": "其他", "icon": AliIcon.liebiao},
