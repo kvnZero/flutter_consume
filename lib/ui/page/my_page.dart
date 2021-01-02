@@ -2,8 +2,12 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_consume/common/Event.dart';
 import 'package:flutter_consume/common/global.dart';
+import 'package:flutter_consume/common/model/bill_model.dart';
+import 'package:flutter_consume/common/model/record_model.dart';
 import 'package:flutter_consume/common/upx.dart';
 import 'package:flutter_consume/ui/widget/common_title.dart';
 import 'package:image_picker/image_picker.dart';
@@ -166,6 +170,22 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
                         minWidth: double.infinity,
                         onPressed: (){
                           Vibration.vibrate(duration: 50);
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.WARNING,
+                            animType: AnimType.BOTTOMSLIDE,
+                            title: '确定清空数据吗',
+                            desc: "数据一旦清空后无法逆转, 永远无法找回啦!",
+                            btnOkText: '删除',
+                            btnOkOnPress: () {
+                              BillModel().deleteAll();
+                              RecordModel().deleteAll();
+                              eventBus.fire(UpdateChangeInEvent(DateTime.now().millisecond));
+                            },
+                            btnCancelText: '不删了',
+                            btnCancelOnPress: () {
+                            },
+                          )..show();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

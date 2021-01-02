@@ -60,6 +60,13 @@ class BaseModel {
     return count>0 ? true : false;
   }
 
+  Future<bool> deleteAll() async {
+    Database db = await DBProvider.db.database;
+    int count = await db.delete(this.tableName,
+      where: 'id > 0',
+    );
+    return count>0 ? true : false;
+  }
 
   Future<bool> deleteBy(key, value) async {
     Database db = await DBProvider.db.database;
