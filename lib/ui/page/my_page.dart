@@ -1,8 +1,12 @@
+import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_consume/common/global.dart';
 import 'package:flutter_consume/common/upx.dart';
 import 'package:flutter_consume/ui/widget/common_title.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:vibration/vibration.dart';
 
 class SineCurve extends Curve {
@@ -23,8 +27,11 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController controller;
+  final picker = ImagePicker();
 
   bool cloudSync = false;
+
+  String iconPath;
 
   @override
   bool get wantKeepAlive => true;
@@ -32,6 +39,7 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
   @override
   void initState() {
     super.initState();
+    iconPath = Global.iconPath;
     controller = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
     controller.forward();
   }
@@ -59,6 +67,19 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
             child: Container(
               height: upx(200),
               width: upx(200),
+              child: InkWell(
+                child: iconPath != null ? Image.file(new File(iconPath)) : Container(),
+                onTap: (){
+                  Future<PickedFile> pickedFile = picker.getImage(source: ImageSource.gallery);
+                  pickedFile.then((value) {
+                    setState(() {
+                      iconPath = value.path;
+                      Global.iconPath = iconPath;
+                      Global.saveIconPath();
+                    });
+                  });
+                },
+              ),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(90),
                   color: Colors.lightBlue[600]

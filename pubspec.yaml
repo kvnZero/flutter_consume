@@ -36,6 +36,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   pattern_formatter: ^1.0.2
   awesome_dialog: ^1.2.1
+  image_picker: ^0.6.7+17
 
 dev_dependencies:
   flutter_test:
