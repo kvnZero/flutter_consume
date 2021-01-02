@@ -9,7 +9,7 @@ Future<List> getMonthData(int month, List billData) async {
   for(int i = 0; i<billData.length; i++){
     DateTime billDate  = DateTime.parse(billData[i]['create_time']);
     DateTime billStartDate  = new DateTime(billDate.year, billDate.month, -1);
-    DateTime monthDate = new DateTime(billDate.year, month, 1);
+    DateTime monthDate = new DateTime(billDate.year, billDate.month+1);
     DateTime endDate = new DateTime(billDate.year, billDate.month+billData[i]['number']+1, 1);
 
     Map data = new Map.from(billData[i]);
@@ -28,7 +28,6 @@ Future<List> getMonthData(int month, List billData) async {
       result.add(data);
     }
   }
-
   return result;
 }
 
