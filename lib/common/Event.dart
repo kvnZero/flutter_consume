@@ -10,6 +10,7 @@ class MoneyChangeInEvent {
 
 class UpdateChangeInEvent {
   int version = 0;
+  bool all     = true;
 
-  UpdateChangeInEvent(this.version);
+  UpdateChangeInEvent(this.version, {this.all = true});
 }

@@ -73,7 +73,7 @@ class _RecordWidgetState extends State<RecordWidget> {
             });
           }
         }
-        eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
+        eventBus.fire(UpdateChangeInEvent(DateTime.now().second, all: false));
         eventBus.fire(MoneyChangeInEvent(selected ? widget.money : -widget.money));
       },
       child: Container(
