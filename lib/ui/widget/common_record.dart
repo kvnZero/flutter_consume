@@ -39,10 +39,13 @@ class _RecordWidgetState extends State<RecordWidget> {
 
   @override
   void didUpdateWidget(covariant RecordWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
     setState(() {
       selected = (widget.status == 1);
+      billId = widget.id;
+      recordId = widget.recordId;
+      payedNumber = widget.payedNumber;
     });
-    super.didUpdateWidget(oldWidget);
   }
 
   @override
