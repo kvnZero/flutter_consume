@@ -41,8 +41,10 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
   @override
   void initState() {
     super.initState();
-    iconPath = Global.iconPath;
-    name = Global.name ?? '';
+    iconPath  = Global.iconPath;
+    name      = Global.name ?? '';
+    cloudSync = Global.cloudSync ?? false;
+
     controller = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
     controller.forward();
   }
@@ -150,6 +152,8 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
                       Switch(value: cloudSync, onChanged: (value){
                         setState(() {
                           cloudSync = value;
+                          Global.cloudSync = cloudSync;
+                          Global.saveCloudSync();
                         });
                       })
                     ],

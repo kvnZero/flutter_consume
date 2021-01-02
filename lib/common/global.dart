@@ -6,6 +6,7 @@ class Global {
 
   static String iconPath;
   static String name;
+  static bool   cloudSync;
 
   static Future init() async{
     _prefs = await SharedPreferences.getInstance();
@@ -19,6 +20,11 @@ class Global {
     if(name == null){
       saveName();
     }
+
+    cloudSync     = _prefs.getBool("cloudSync");
+    if(cloudSync == null){
+      saveCloudSync();
+    }
   }
 
   static saveIconPath(){
@@ -27,5 +33,9 @@ class Global {
 
   static saveName(){
     _prefs.setString("name", name);
+  }
+
+  static saveCloudSync(){
+    _prefs.setBool("cloudSync", cloudSync);
   }
 }
