@@ -101,6 +101,16 @@ List getAllSourceInfo(){
   return types;
 }
 
+int getSourceId(title){
+  List allInfo = getAllSourceInfo();
+  for(int i = 0; i<allInfo.length; i++) {
+    if(allInfo[i]['title'] == title){
+      return allInfo[i]['id'];
+    }
+  }
+  return 1;
+}
+
 String getSourceText(id){
   List allInfo = getAllSourceInfo();
   for(int i = 0; i<allInfo.length; i++) {

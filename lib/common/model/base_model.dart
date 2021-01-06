@@ -7,13 +7,13 @@ class BaseModel {
 
   BaseModel(this.tableName);
 
-  Future<List> get(id) async {
+  Future<Map> get(id) async {
     Database db = await DBProvider.db.database;
     List<Map> data = await db.query(this.tableName,
         where: 'id = ?',
         whereArgs: [id],
         limit: 1);
-    return data;
+    return data[0];
   }
 
   Future<List> getBy(key, value) async {

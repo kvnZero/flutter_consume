@@ -11,6 +11,11 @@ import 'package:pattern_formatter/numeric_formatter.dart';
 import 'package:flutter_consume/common/Event.dart';
 
 class AddBillPage extends StatefulWidget {
+
+  final int billId;
+
+  AddBillPage({this.billId});
+
   @override
   _AddBillPageState createState() => _AddBillPageState();
 }
@@ -26,7 +31,36 @@ class _AddBillPageState extends State<AddBillPage> {
   String date;
   double money;
 
+  final TextEditingController titleController = new TextEditingController();
+  final TextEditingController numberController = new TextEditingController();
+  final TextEditingController dateController = new TextEditingController();
+  final TextEditingController moneyController = new TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    if(widget.billId != null){
+      this.switchType = 1;
+      Future<Map> bill =  BillModel().get(widget.billId);
+      bill.then((value) {
+        setState(() {
+          title = value['title'];
+          type = value['type'];
+          number = value['number'].toString();
+          date = value['pay_time'];
+          money = (value['pay_money'] / 100 );
+          source = getSourceId(value['source']);
+        });
+        titleController.text = title;
+        numberController.text = number;
+        dateController.text = date;
+        moneyController.text = money.toString();
+      });
+    }
+    super.initState();
+
+  }
 
   List<Widget> typeForm() {
     List<Widget> widgetList = [];
@@ -45,6 +79,7 @@ class _AddBillPageState extends State<AddBillPage> {
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
                       child: TextFormField(
+                        controller:  titleController,
                         decoration: InputDecoration(
                             hintText: "分期项目(建议填写商品名或来源)",
                             border: new OutlineInputBorder(  //添加边框
@@ -68,12 +103,12 @@ class _AddBillPageState extends State<AddBillPage> {
                       ),
                     ),
                   ),
-                  IconSelectList(eleList: typeInfo, onSelect: (value){
+                  IconSelectList(eleList: typeInfo, value: type, onSelect: (value){
                     setState(() {
                       this.type = value;
                     });
                   },),
-                  IconSelectList(eleList: sourceInfo, onSelect: (value){
+                  IconSelectList(eleList: sourceInfo, value: source, onSelect: (value){
                     setState(() {
                       this.source = value;
                     });
@@ -87,6 +122,7 @@ class _AddBillPageState extends State<AddBillPage> {
                         Container(
                           width: upx(210),
                           child: TextFormField(
+                            controller: numberController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 hintText: "需还期数",
@@ -114,6 +150,7 @@ class _AddBillPageState extends State<AddBillPage> {
                         Container(
                           width: upx(240),
                           child: TextFormField(
+                            controller: dateController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 hintText: "每月还款日",
@@ -141,6 +178,7 @@ class _AddBillPageState extends State<AddBillPage> {
                         Container(
                           width: upx(210),
                           child: TextFormField(
+                            controller: moneyController,
                             keyboardType: TextInputType.number,
                             inputFormatters: [
                               ThousandsFormatter(allowFraction: true)
@@ -183,34 +221,61 @@ class _AddBillPageState extends State<AddBillPage> {
                           color: Color(0xFFFFA53E),
                           onPressed: (){
                             if (_formKey.currentState.validate()) {
-                              Future<int> newId =  BillModel().insert({
-                                "title": title,
-                                "type": type ?? 1,
-                                "number": number ?? 1,
-                                "pay_time": date ?? 1,
-                                "pay_money": (money ?? 1) * 100,
-                                "source": getSourceText(source ?? 1)
-                              });
-                              newId.then((value){
-                                eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
-                              });
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.SUCCES,
-                                animType: AnimType.BOTTOMSLIDE,
-                                title: '创建成功',
-                                desc: '点击确定返回上一页',
-                                btnOkText: '确定',
-                                btnOkOnPress: () {
-                                  setState(() {
-                                    switchType = 0;
-                                  });
-                                },
-                              )..show();
+                              if(widget.billId == null){
+                                Future<int> newId =  BillModel().insert({
+                                  "title": title,
+                                  "type": type ?? 1,
+                                  "number": number ?? 1,
+                                  "pay_time": date ?? 1,
+                                  "pay_money": (money ?? 1) * 100,
+                                  "source": getSourceText(source ?? 1)
+                                });
+                                newId.then((value){
+                                  eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
+                                });
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.SUCCES,
+                                  animType: AnimType.BOTTOMSLIDE,
+                                  title: '创建成功',
+                                  desc: '点击确定返回上一页',
+                                  btnOkText: '确定',
+                                  btnOkOnPress: () {
+                                    setState(() {
+                                      switchType = 0;
+                                    });
+                                  },
+                                )..show();
+                              }else{
+                                Future<bool> updated =  BillModel().update(widget.billId, {
+                                  "title": title,
+                                  "type": type ?? 1,
+                                  "number": number ?? 1,
+                                  "pay_time": date ?? 1,
+                                  "pay_money": (money ?? 1) * 100,
+                                  "source": getSourceText(source ?? 1)
+                                });
+                                updated.then((value){
+                                  eventBus.fire(UpdateChangeInEvent(DateTime.now().second));
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.SUCCES,
+                                    animType: AnimType.BOTTOMSLIDE,
+                                    title: '更新' + (value ? '成功' : '失败'),
+                                    desc: '点击确定返回上一页',
+                                    btnOkText: '确定',
+                                    btnOkOnPress: () {
+                                      setState(() {
+                                        switchType = 0;
+                                      });
+                                    },
+                                  )..show();
+                                });
+                              }
                             }
                           },
                           child: Text(
-                            "Create",
+                            widget.billId == null ? "Create" : "Update",
                             style: TextStyle(
                               fontSize: upx(38),
                               color: Colors.white,
@@ -270,7 +335,6 @@ class _AddBillPageState extends State<AddBillPage> {
                             Container(
                               width: upx(210),
                               child: TextFormField(
-                                initialValue: "1",
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     hintText: "需还期数",
@@ -298,7 +362,6 @@ class _AddBillPageState extends State<AddBillPage> {
                             Container(
                               width: upx(240),
                               child: TextFormField(
-                                initialValue: "1",
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     hintText: "每月还款日",

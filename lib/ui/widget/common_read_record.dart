@@ -15,7 +15,10 @@ class ReadRecordWidget extends StatefulWidget {
   final String source;
   final IconData typeIcon;
 
-  ReadRecordWidget({Key key, this.id, this.name, this.payedMoney, this.payMoney, this.dateShow, this.payDate, this.typeIcon, this.source});
+  final Widget editPage;
+  final ValueChanged<void> editThen;
+
+  ReadRecordWidget({Key key, this.id, this.name, this.payedMoney, this.payMoney, this.dateShow, this.payDate, this.typeIcon, this.source, this.editPage, this.editThen});
 
   @override
   _ReadRecordWidgetState createState() => _ReadRecordWidgetState();
@@ -109,6 +112,12 @@ class _ReadRecordWidgetState extends State<ReadRecordWidget> {
           btnCancelOnPress: () {
           },
         )..show();
+      },
+      onLongPress: (){
+        Navigator.push(
+          context,
+          new MaterialPageRoute(builder: (context) => widget.editPage),
+        ).then(widget.editThen);
       },
     );
   }

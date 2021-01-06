@@ -4,11 +4,12 @@ import 'package:flutter_consume/common/upx.dart';
 class IconSelectList extends StatefulWidget {
 
   final List eleList;
+  final int value;
   final ValueChanged<int> onSelect;
   final Color unSelectColor;
   final Color selectColor;
 
-  IconSelectList({Key key, this.eleList , this.onSelect, this.unSelectColor = Colors.black, this.selectColor  = Colors.blueAccent}) : super(key: key);
+  IconSelectList({Key key, this.eleList, this.value, this.onSelect, this.unSelectColor = Colors.black, this.selectColor  = Colors.blueAccent}) : super(key: key);
 
   @override
   _IconSelectListState createState() => _IconSelectListState();
@@ -17,6 +18,22 @@ class IconSelectList extends StatefulWidget {
 class _IconSelectListState extends State<IconSelectList> {
 
   int selectId;
+
+  @override
+  void initState() {
+    super.initState();
+    if(widget.value != null){
+      selectId = widget.value;
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant IconSelectList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      selectId = widget.value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

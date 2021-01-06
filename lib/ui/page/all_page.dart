@@ -86,7 +86,14 @@ class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
               dateShow: value['billData'][i]['date_show'],
               payDate: value['billData'][i]['pay_time'],
               typeIcon: getTypeIcon(value['billData'][i]['type']),
-              source: value['billData'][i]['source']));
+              source: value['billData'][i]['source'],
+            editPage: new AddBillPage(billId: value['billData'][i]['id'],),
+            editThen: (e){
+              BillModel().getAll().then((value) {
+                _flush(value);
+              });
+            },
+          ));
         }
       });
     });
