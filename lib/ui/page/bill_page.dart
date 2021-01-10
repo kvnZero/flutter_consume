@@ -15,6 +15,7 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
   DateTime today = DateTime.now();
   List<Widget> widgets = [];
 
+  int year;
   int month;
   int flushVersion = 0;
 
@@ -24,6 +25,7 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
   @override
   void initState() {
     super.initState();
+    year  = today.year;
     month = today.month;
     BillModel().getAll().then((value) {
       _flush(value);
@@ -57,14 +59,27 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
   }
 
   Future<void> _flush(List billList) async{
-    Future<Map> monthData = getMonthMoneyData(month, billList);
+    Future<Map> monthData = getMonthMoneyData(month, billList, year: year);
     monthData.then((monthData) {
       setState(() {
         widgets.clear();
-        widgets.add(IndexMoneyWidget(payedMoney: monthData['payed']/100, payMoney: monthData['pay']/100, month: month,));
+        widgets.add(IndexMoneyWidget(payedMoney: monthData['payed']/100, payMoney: monthData['pay']/100, month: month,
+            onDateChange: (date){
+              setState(() {
+                this.month = date.month;
+                this.year  = date.year;
+              });
+              BillModel().getAll().then((value) {
+                _flush(value);
+              });
+          },));
       });
+      _flushData(billList); //需要拆分 或者可能导致被提前加载后clear()
     });
-    Future<List> recordData = getMonthData(month, billList);
+  }
+
+  Future<void> _flushData(List billList) async{
+    Future<List> recordData = getMonthData(month, billList, year: year);
     recordData.then((recordData) {
       recordData.forEach((element) {
         setState(() {

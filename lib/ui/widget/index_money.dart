@@ -3,14 +3,16 @@ import 'package:flutter_consume/common/upx.dart';
 import 'package:flutter_consume/common/Event.dart';
 import 'package:flutter_consume/ui/widget/common_money_show.dart';
 import 'dart:ui';
+import 'package:flutter_picker/flutter_picker.dart';
 
 class IndexMoneyWidget extends StatefulWidget {
 
   final double payedMoney;
   final double payMoney;
   final int month;
+  final ValueChanged<DateTime> onDateChange;
 
-  IndexMoneyWidget({Key key, this.payedMoney, this.payMoney, this.month}) : super(key: key);
+  IndexMoneyWidget({Key key, this.payedMoney, this.payMoney, this.month, this.onDateChange}) : super(key: key);
 
   @override
   _IndexMoneyWidgetState createState() => _IndexMoneyWidgetState();
@@ -29,12 +31,20 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
   Animation<double> payAnimation;
   Animation<double> payedAnimation;
 
+  List<List> _dateData = [[], [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ,11, 12
+  ]];
 
   @override
   void initState() {
+
+    for(int i = DateTime.now().year; i > 2010; i--){
+      _dateData[0].add(i);
+    }
+
     payedMoney = widget.payedMoney;
     payMoney = widget.payMoney;
-
+    month    = widget.month.toString();
     controller = AnimationController(duration: Duration(milliseconds: 500), vsync: this);
 
     payedAnimation = new Tween<double>(
@@ -175,7 +185,25 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
                 ),
                 Container(
                   margin: EdgeInsets.only(top: upx(20)),
-                  child: Text("${widget.month.toString()}月账单", style: TextStyle(fontSize: upx(30), color: tipFontColor),),
+                  child: InkWell(
+                    child: Text("$month月账单", style: TextStyle(fontSize: upx(30), color: tipFontColor),),
+                    onTap: (){
+                      new Picker(
+                          adapter: PickerDataAdapter<String>(pickerdata: _dateData, isArray: true),
+                          hideHeader: true,
+                          title: new Text("请选择日期"),
+                          onConfirm: (Picker picker, List value) {
+                            value = picker.getSelectedValues();
+                            if(widget.onDateChange != null){
+                              widget.onDateChange(new DateTime(int.parse(value[0]), int.parse(value[1])));
+                            }
+                            setState(() {
+                              month = value[1];
+                            });
+                          },
+                      ).showDialog(context);
+                    },
+                  ),
                   height: upx(50),
                 )
               ],

@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_consume/common/AliIcon.dart';
 import 'package:flutter_consume/common/model/record_model.dart';
 
-Future<List> getMonthData(int month, List billData) async {
+Future<List> getMonthData(int month, List billData, {int year}) async {
 
   List result = [];
 
   for(int i = 0; i<billData.length; i++){
     DateTime billDate  = DateTime.parse(billData[i]['create_time']);
-    DateTime billStartDate  = new DateTime(billDate.year, billDate.month, -1);
-    DateTime monthDate = new DateTime(billDate.year, billDate.month+1);
-    DateTime endDate = new DateTime(billDate.year, billDate.month+billData[i]['number']+1, 1);
+    if(year == null){
+      year = billDate.year;
+    }
+    DateTime monthDate = new DateTime(year, month+1); //选择的日期
+    DateTime billStartDate  = new DateTime(billDate.year, billDate.month); //账单开始时间
+    DateTime endDate = new DateTime(billDate.year, billDate.month+billData[i]['number']+1, 1); //账单结束时间
 
     Map data = new Map.from(billData[i]);
     if(monthDate.isAfter(billStartDate) && monthDate.isBefore(endDate)){
@@ -32,17 +35,26 @@ Future<List> getMonthData(int month, List billData) async {
 }
 
 
-Future<Map> getMonthMoneyData(int month, List billData) async{
+Future<Map> getMonthMoneyData(int month, List billData, {int year}) async{
 
   int payMoney = 0;
   int payedMoney = 0;
 
+  if(year == null){
+    year = DateTime.now().year;
+  }
+  DateTime selectDate = new DateTime(year, month+1);
   for(int i = 0; i<billData.length; i++){
+    DateTime billDate  = DateTime.parse(billData[i]['create_time']);
+    DateTime billStartDate  = new DateTime(billDate.year, billDate.month); //账单开始时间
+    DateTime endDate = new DateTime(billDate.year, billDate.month+billData[i]['number']+1, 1); //账单结束时间
+
+    if(selectDate.isAfter(billStartDate) && selectDate.isBefore(endDate)) {
       List recordData = await RecordModel().getByBillId(billData[i]['id']);
       bool payed = false;
       recordData.forEach((ele) {
         DateTime recordDate = DateTime.parse(ele['create_time']);
-        if(recordDate.month == month || payed == true){
+        if((recordDate.year == year && recordDate.month == month) || payed == true){
           payed = true;
         }
       });
@@ -52,6 +64,7 @@ Future<Map> getMonthMoneyData(int month, List billData) async{
       }else{
         payMoney += billData[i]['pay_money'];
       }
+    }
   }
 
   return new Map.from({"pay": payMoney, "payed": payedMoney});
