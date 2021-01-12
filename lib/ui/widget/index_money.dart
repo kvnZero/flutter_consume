@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_consume/common/common.dart';
 import 'package:flutter_consume/common/upx.dart';
 import 'package:flutter_consume/common/Event.dart';
 import 'package:flutter_consume/ui/widget/common_money_show.dart';
@@ -120,27 +121,17 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
 
     var today = DateTime.now();
 
+    Map timeMap;
     String imgBack;
     Color moneyFontColor;
     Color tipFontColor;
 
-    if(today.hour >= 0 ){
-      imgBack = "assets/images/em-back.png";
+    timeMap = getTimeImagePath();
+    if(timeMap['time'] == 'em'){
       tipFontColor = Colors.white60;
       moneyFontColor = Colors.white;
     }
-    if(today.hour >=7 ){
-      imgBack = "assets/images/am-back.png";
-    }
-    if(today.hour >= 16){
-      imgBack = "assets/images/pm-back.png";
-    }
-    if(today.hour >= 20){
-      imgBack = "assets/images/em-back.png";
-      tipFontColor = Colors.white60;
-      moneyFontColor = Colors.white;
-    }
-
+    imgBack = timeMap['path'];
 
     return Column(
       children: [

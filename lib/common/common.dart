@@ -134,6 +134,31 @@ String getSourceText(id){
   return "";
 }
 
+Map getTimeImagePath() {
+  var today = DateTime.now();
+
+  String imgBack;
+  String time;
+
+  if(today.hour >= 0 ){
+    imgBack = "assets/images/em-back.png";
+    time = 'em';
+  }
+  if(today.hour >=7 ){
+    imgBack = "assets/images/am-back.png";
+    time = 'am';
+  }
+  if(today.hour >= 16){
+    imgBack = "assets/images/pm-back.png";
+    time = 'pm';
+  }
+  if(today.hour >= 20){
+    imgBack = "assets/images/em-back.png";
+    time = 'em';
+  }
+  return {'time': time, 'path': imgBack};
+}
+
 Future<Map> getBillShowData(List billData) async{
   Map allData = new Map.from({"pay":0, "payed":0});
   List newBillData = [];
