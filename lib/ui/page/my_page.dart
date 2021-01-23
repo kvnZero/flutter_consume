@@ -211,8 +211,8 @@ class _MyPageState extends State<MyPage> with TickerProviderStateMixin, Automati
             children: widgets,
           ),
           Container(
-            padding: EdgeInsets.only(bottom: upx(60)),
-            child: Text('理智消费, 合理规划。', style: TextStyle(color: Colors.black26),),
+            padding: EdgeInsets.only(bottom: upx(105)),
+            child: Text('理智消费, 合理规划。', style: TextStyle(color: Colors.black54),),
           )
         ],
       ),
