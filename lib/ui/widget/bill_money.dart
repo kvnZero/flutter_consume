@@ -150,6 +150,14 @@ class _BillMoneyWidgetState extends State<BillMoneyWidget> {
       allMoney += element['pay_money'];
     });
 
+    if(billMoney.isEmpty){
+      //赋予假0 显示图标
+      billMoney.addAll({
+        1: 1
+      });
+      allMoney = 1;
+    }
+
     billMoney.forEach((key, value) {
       final double fontSize = 16;
       final double radius = 50;
