@@ -77,8 +77,9 @@ class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
               billData: billList,
             )
         );
-        for (int i = 0; i < value['billData'].length; i++) {
-          widgets.add(ReadRecordWidget(
+        if(value['billData'].length > 0){
+          for (int i = 0; i < value['billData'].length; i++) {
+            widgets.add(ReadRecordWidget(
               id: value['billData'][i]['id'],
               name: value['billData'][i]['title'],
               payMoney: value['billData'][i]['pay'] / 100,
@@ -87,13 +88,21 @@ class _AllPageState extends State<AllPage> with AutomaticKeepAliveClientMixin{
               payDate: value['billData'][i]['pay_time'],
               typeIcon: getTypeIcon(value['billData'][i]['type']),
               source: value['billData'][i]['source'],
-            editPage: new AddBillPage(billId: value['billData'][i]['id'],),
-            editThen: (e){
-              BillModel().getAll().then((value) {
-                _flush(value);
-              });
-            },
-          ));
+              editPage: new AddBillPage(billId: value['billData'][i]['id'],),
+              editThen: (e){
+                BillModel().getAll().then((value) {
+                  _flush(value);
+                });
+              },
+            ));
+          }
+        }else{
+          setState(() {
+            widgets.add(Container(
+              margin: EdgeInsets.only(top: 400),
+              child: Text("还没添加账单记录, 快去添加吧", style: TextStyle(color: Colors.black54),),
+            ));
+          });
         }
       });
     });

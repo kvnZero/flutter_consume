@@ -81,21 +81,30 @@ class _BillPageState extends State<BillPage> with AutomaticKeepAliveClientMixin{
   Future<void> _flushData(List billList) async{
     Future<List> recordData = getMonthData(month, billList, year: year);
     recordData.then((recordData) {
-      recordData.forEach((element) {
+      if(recordData.isEmpty){
         setState(() {
-          widgets.add(RecordWidget(
-            id: element['id'],
-            name: element['title'],
-            money: element['pay_money']/100,
-            payNumber: element['number'],
-            payedNumber: element['count'],
-            payDate: element['pay_time'],
-            type: getTypeText(element['type']),
-            status: element['status'],
-            recordId: element['record_id'] ?? 0,
+          widgets.add(Container(
+            margin: EdgeInsets.only(top: 540),
+            child: Text("还没添加账单记录, 快去添加吧", style: TextStyle(color: Colors.black54),),
           ));
         });
-      });
+      }else{
+        recordData.forEach((element) {
+          setState(() {
+            widgets.add(RecordWidget(
+              id: element['id'],
+              name: element['title'],
+              money: element['pay_money']/100,
+              payNumber: element['number'],
+              payedNumber: element['count'],
+              payDate: element['pay_time'],
+              type: getTypeText(element['type']),
+              status: element['status'],
+              recordId: element['record_id'] ?? 0,
+            ));
+          });
+        });
+      }
     });
   }
 }
