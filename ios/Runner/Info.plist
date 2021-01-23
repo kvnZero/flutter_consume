@@ -40,8 +40,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>JustShowInPage</string>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>JustShowInPage</string>
 </dict>
 </plist>
