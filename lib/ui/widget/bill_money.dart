@@ -80,7 +80,7 @@ class _BillMoneyWidgetState extends State<BillMoneyWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("全部账单",style: TextStyle(fontSize: upx(40), color: Colors.white)),
+                  Text("全部账单",style: TextStyle(fontSize: upx(40), color: tipFontColor)),
                   Container(
                     height: upx(40),
                     width: upx(40),

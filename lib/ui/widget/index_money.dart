@@ -148,7 +148,7 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
               children: [
                 Container(
                   padding: EdgeInsets.only(left: upx(50),right: upx(50),top: MediaQueryData.fromWindow(window).padding.top+10),
-                  child: Text("本月账单",style: TextStyle(fontSize: upx(40), color: Colors.white)),
+                  child: Text("本月账单",style: TextStyle(fontSize: upx(40), color: tipFontColor)),
                   width: double.infinity,
                 ),
                 Row(
