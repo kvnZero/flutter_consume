@@ -177,7 +177,13 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
                 Container(
                   margin: EdgeInsets.only(top: upx(20)),
                   child: InkWell(
-                    child: Text("$month月账单", style: TextStyle(fontSize: upx(30), color: tipFontColor),),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("$month月账单", style: TextStyle(fontSize: upx(30), color: tipFontColor),),
+                        Icon(Icons.unfold_more, size: upx(30), color: tipFontColor)
+                      ],  
+                    ),
                     onTap: (){
                       new Picker(
                           adapter: PickerDataAdapter<String>(pickerdata: _dateData, isArray: true),
