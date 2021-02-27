@@ -14,8 +14,9 @@ class RecordWidget extends StatefulWidget {
   final String payDate;
   final String type;
   final int status;
+  final int month;
 
-  RecordWidget({Key key, this.id, this.name, this.money, this.payedNumber, this.payNumber, this.payDate, this.type, this.status, this.recordId});
+  RecordWidget({Key key, this.id, this.name, this.money, this.payedNumber, this.payNumber, this.payDate, this.type, this.status, this.recordId, this.month});
 
   @override
   _RecordWidgetState createState() => _RecordWidgetState();
@@ -57,9 +58,12 @@ class _RecordWidgetState extends State<RecordWidget> {
         });
         if (selected) {
           if(recordId == 0) {
+            DateTime nowTime = DateTime.now();
+            DateTime recordTime =  new DateTime(nowTime.year, widget.month, 1);
             Future<int> newRecordId = RecordModel().insert({
-              "bill_id": billId
-            });
+              "bill_id": billId,
+              "create_time": recordTime.toString()
+        });
             newRecordId.then((value) {
               setState(() {
                 recordId = value;
