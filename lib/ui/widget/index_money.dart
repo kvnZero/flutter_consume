@@ -39,7 +39,7 @@ class _IndexMoneyWidgetState extends State<IndexMoneyWidget> with SingleTickerPr
   @override
   void initState() {
 
-    for(int i = DateTime.now().year+5; i > 2010; i--){
+    for(int i = DateTime.now().year; i > 2010; i--){
       _dateData[0].add(i);
     }
 
